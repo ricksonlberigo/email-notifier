@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "name": "ricksonl/email-notifier",
+  "description": "Pacote responsável pelo envio automatizado de e-mails de sucesso ou erro para cada aplicação executada no servidor da Hypersoft.",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "EmailNotifier\\": "src/"
+    }
+  },
+  "require": {
+    "symfony/mailer": "^5.4"
+  }
+}

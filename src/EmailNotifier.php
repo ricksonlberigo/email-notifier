@@ -1,0 +1,47 @@
+<?php
+
+namespace EmailNotifier;
+
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
+
+class EmailNotifier
+{
+  private $mailer;
+  private $from;
+  private $to;
+
+  public function __construct(string $from, string $to)
+  {
+    $config = new Config();
+    $dsn = "smtp://{$config->email}:{$config->emailPass}@{$config->stmp}";
+
+    $this->from = $from;
+    $this->to = $to;
+
+    $transport = Transport::fromDsn($dsn);
+    $this->mailer = new Mailer($transport);
+  }
+
+  public function sendSuccess(string $subject, string $message): void
+  {
+    $this->sendEmail("[SUCESSO] " . $subject, $message);
+  }
+
+  public function sendError(string $subject, string $message): void
+  {
+    $this->sendEmail("[ERRO] " . $subject, $message);
+  }
+
+  private function sendEmail(string $subject, string $message): void
+  {
+    $email = (new Email())
+      ->from($this->from)
+      ->to($this->to)
+      ->subject($subject)
+      ->text($message);
+
+    $this->mailer->send($email);
+  }
+}
