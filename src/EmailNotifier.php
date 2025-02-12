@@ -34,13 +34,18 @@ class EmailNotifier
     $this->sendEmail("[ERRO] " . $subject, $message);
   }
 
-  private function sendEmail(string $subject, string $message): void
+  private function sendEmail(string $subject, string $message, bool $isHtml = false): void
   {
     $email = (new Email())
       ->from($this->from)
       ->to(...$this->to)
-      ->subject($subject)
-      ->text($message);
+      ->subject($subject);
+
+    if ($isHtml) {
+      $email->html($message);
+    } else {
+      $email->text($message);
+    }
 
     $this->mailer->send($email);
   }
