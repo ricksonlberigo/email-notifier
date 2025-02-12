@@ -18,7 +18,7 @@ class EmailNotifier
     $dsn = "smtp://{$config->email}:{$config->emailPass}@{$config->stmp}";
 
     $this->from = $from;
-    $this->to = $to;
+    $this->to = is_array($to) ? $to : [$to];
 
     $transport = Transport::fromDsn($dsn);
     $this->mailer = new Mailer($transport);
@@ -38,7 +38,7 @@ class EmailNotifier
   {
     $email = (new Email())
       ->from($this->from)
-      ->to($this->to)
+      ->to(...$this->to)
       ->subject($subject)
       ->text($message);
 
