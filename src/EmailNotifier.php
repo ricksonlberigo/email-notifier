@@ -12,7 +12,7 @@ class EmailNotifier
   private $from;
   private $to;
 
-  public function __construct(string $from, string $to)
+  public function __construct(string $from, $to)
   {
     $config = new Config();
     $dsn = "smtp://{$config->email}:{$config->emailPass}@{$config->stmp}";
