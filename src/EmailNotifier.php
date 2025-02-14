@@ -24,14 +24,14 @@ class EmailNotifier
     $this->mailer = new Mailer($transport);
   }
 
-  public function sendSuccess(string $subject, string $message): void
+  public function sendSuccess(string $subject, string $message, bool $isHtml = false): void
   {
-    $this->sendEmail("[SUCESSO] " . $subject, $message);
+    $this->sendEmail("[SUCESSO] " . $subject, $message, $isHtml);
   }
 
-  public function sendError(string $subject, string $message): void
+  public function sendError(string $subject, string $message, bool $isHtml = false): void
   {
-    $this->sendEmail("[ERRO] " . $subject, $message);
+    $this->sendEmail("[ERRO] " . $subject, $message, $isHtml);
   }
 
   private function sendEmail(string $subject, string $message, bool $isHtml = false): void
